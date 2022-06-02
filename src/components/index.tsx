@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const Root = styled.div`
   width: 400px;
-  height: 240px;
+  height: 300px;
 `;
 
 const Inner = styled.div`
@@ -13,16 +13,29 @@ const Inner = styled.div`
 
 const Row = styled.div`
   display: flex;
-  height: 50px;
   align-items: center;
+  margin-top: 20px;
+
+  div {
+    width: 100%;
+    text-align: center;
+  }
 
   label {
     flex-basis: 30%;
+    font-weight: 600;
   }
 `;
 
+const Text = styled.div`
+  p {
+    font-size: 14px;
+    font-weight: 600;
+  }
+`;
 const Input = styled.input`
   width: 100%;
+  padding: 0.5em;
 `;
 
 const ButtonBox = styled.div`
@@ -34,10 +47,14 @@ const ButtonBox = styled.div`
   }
 `;
 
-const Button = styled.button``;
+const Button = styled.button`
+  font-weight: 600;
+  margin-top: 20px;
+`;
 
 const Index = () => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const savedRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     chrome.storage.local.get(['input']).then((value) => {
@@ -56,18 +73,33 @@ const Index = () => {
     // 保存
     chrome.storage.local.set({ input }, () => {
       // なにか処理するのであればここで
+
+      if (savedRef.current) {
+        savedRef.current.innerText = '保存されました。';
+      }
     });
   }, []);
 
   return (
     <Inner>
       <Row>
-        <label>テキスト</label>
+        <Text>
+          <p>
+            トップ画面から非表示にしたいコンテンツのキーワードを入力して下さい。
+            （複数個のキーワードを指定する場合は、半角スペースで区切る）
+          </p>
+        </Text>
+      </Row>
+      <Row>
+        <label>キーワード</label>
         <Input ref={inputRef} type="text" />
       </Row>
       <ButtonBox>
         <Button onClick={onSaveClick}>保存</Button>
       </ButtonBox>
+      <Row>
+        <div ref={savedRef}></div>
+      </Row>
     </Inner>
   );
 };
