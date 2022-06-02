@@ -13,7 +13,6 @@ const Inner = styled.div`
 
 const Row = styled.div`
   display: flex;
-  // height: 50px;
   align-items: center;
   margin-top: 20px;
 
@@ -55,7 +54,7 @@ const Button = styled.button`
 
 const Index = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const saved = useRef<HTMLDivElement>(null);
+  const savedRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     chrome.storage.local.get(['input']).then((value) => {
@@ -75,8 +74,8 @@ const Index = () => {
     chrome.storage.local.set({ input }, () => {
       // なにか処理するのであればここで
 
-      if (saved.current) {
-        saved.current.innerText = '保存されました。';
+      if (savedRef.current) {
+        savedRef.current.innerText = '保存されました。';
       }
     });
   }, []);
@@ -99,7 +98,7 @@ const Index = () => {
         <Button onClick={onSaveClick}>保存</Button>
       </ButtonBox>
       <Row>
-        <div ref={saved}></div>
+        <div ref={savedRef}></div>
       </Row>
     </Inner>
   );
