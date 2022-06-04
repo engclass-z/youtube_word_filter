@@ -8,14 +8,17 @@
     "48": "icon/icon_48.png",
     "128": "icon/icon_128.png"
   },
-  "permissions": ["storage"],
+  "background": {
+    "service_worker": "js/app.js"
+  },
+  "permissions": ["storage", "activeTab", "tabs", "debugger", "*://www.youtube.com/*"],
+  "host_permissions": ["https://www.youtube.com/*"],
   "action": {
     "default_popup": "popup.html"
   },
   "content_scripts": [
     {
       "matches": ["https://www.youtube.com/"],
-      "js": ["js/app.js"],
       "css": ["css/app.css"]
     }
   ],

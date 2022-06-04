@@ -11,6 +11,7 @@ YouTube 動画の批判コメントの投稿主表示を任意に変更できる
 1. 右上の `デベロッパーモード` を ON にする
 1. 上部メニューの `パッケージ化されていない拡張機能を読み込む` を選択する
 1. 最初に `git clone` してきたディレクトリの中の dist ディレクトリを選択する
+1. charles 等のツールで、https://www.youtube.com/youtubei/v1/browser の HTTP リクエストヘッダの origin を https://www.youtube.com に書き換える
 
 # How to update
 
